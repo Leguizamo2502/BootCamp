@@ -12,12 +12,12 @@ namespace Entity.DTOs.Implements.Create
     {
         public string ImageUrl { get; set; }
 
-        public int Salud { get; set; }
-        public int Velocidad { get; set; }
-        public int Resistencia { get; set; }
-        public int Magia { get; set; }
-        public int Fuerza { get; set; }
-        public int Defensa { get; set; }
+        public int Health { get; set; }
+        public int Speed { get; set; }
+        public int Resistance { get; set; }
+        public int Magic { get; set; }
+        public int Force { get; set; }
+        public int Defense { get; set; }
         public int? DeckId { get; set; }
     }
 }

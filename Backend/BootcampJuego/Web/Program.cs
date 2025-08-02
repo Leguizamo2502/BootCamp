@@ -29,6 +29,8 @@ builder.Services.AddScoped(typeof(IData<>), typeof(DataGeneric<>));
 
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<ICardService, CardService>();
 
 
 var conection = builder.Configuration.GetConnectionString("default");
