@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Interfaces.Implements;
-using Business.Interfaces.Repository;
 using Business.Repository;
 using Data.Interfaces.Implements;
 using Data.Interfaces.IRepository;
@@ -15,12 +14,12 @@ using MapsterMapper;
 
 namespace Business.Services
 {
-    public class CardService : BusinesGeneric<CardCreateDto, CardSelectDto, Card>, ICardService
+    public class DeckService : BusinesGeneric<DeckCreateDto, DeckSelectDto, Deck>, IDeckService
     {
-        private readonly ICardRepository _cardRepository;
-        public CardService(IData<Card> data, IMapper mapper, ICardRepository cardRepository) : base(data, mapper)
+        private readonly IDeckRepository _deckRepository;
+        public DeckService(IData<Deck> data, IMapper mapper, IDeckRepository deckRepository) : base(data, mapper)
         {
-            _cardRepository = cardRepository;
+            _deckRepository = deckRepository;
         }
     }
 }

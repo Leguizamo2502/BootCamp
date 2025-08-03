@@ -6,16 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.DTOs.Implements.Create
+namespace Entity.DTOs.Implements.Select
 {
-    public class GamePlayerDto : BaseDto
+    public class GamePlayerSelectDto : BaseDto
     {
         public int PlayerId { get; set; }
 
         public int RoomId { get; set; }
 
         public bool Winner { get; set; }
-
 
     }
 }

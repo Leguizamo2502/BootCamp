@@ -20,7 +20,6 @@ namespace Business.Repository
             try
             {
                 var entities = await _data.GetAllAsync();
-                //return _mapper.Map<IEnumerable<TSelect>>(entities);
                 return entities.Adapt<IEnumerable<TSelect>>();
             } catch (Exception ex) 
             {

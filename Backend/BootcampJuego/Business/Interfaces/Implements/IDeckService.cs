@@ -10,11 +10,7 @@ using Entity.DTOs.Implements.Select;
 
 namespace Business.Interfaces.Implements
 {
-    public interface IPlayerService : IBusinessGeneric<PlayerCreateDto, PlayerSelectDto>
+    public interface IDeckService : IBusinessGeneric<DeckCreateDto,DeckSelectDto>
     {
-        Task<int?> DeleteLogic(int id);
-        Task<int?> RestoreLogic(int id);
-
-        Task<IEnumerable<Player>> GetAllDeletes();
     }
 }

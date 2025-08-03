@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Interfaces.Repository;
-using Entity.Domain.Models.Implements;
 using Entity.DTOs.Implements.Create;
 using Entity.DTOs.Implements.Select;
 
 namespace Business.Interfaces.Implements
 {
-    public interface IPlayerService : IBusinessGeneric<PlayerCreateDto, PlayerSelectDto>
+    public interface IRoomService : IBusinessGeneric<RoomCreateDto,RoomSelectDto>
     {
-        Task<int?> DeleteLogic(int id);
-        Task<int?> RestoreLogic(int id);
-
-        Task<IEnumerable<Player>> GetAllDeletes();
     }
 }

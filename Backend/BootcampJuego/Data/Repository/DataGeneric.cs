@@ -6,8 +6,8 @@ namespace Data.Repository
 {
     public class DataGeneric<T> : ADataGeneric<T> where T : BaseModel
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly ApplicationDbContext _context;
+        protected readonly DbSet<T> _dbSet;
         public DataGeneric(ApplicationDbContext context)
         {
             _context = context;
