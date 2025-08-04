@@ -11,7 +11,6 @@ namespace Entity.DTOs.Implements.Variants
     {
         public int GamePlayerId { get; set; }
         public string PlayerName { get; set; } = string.Empty;
-        //public PlayerDto Player { get; set; }
         public List<CardSelectDto> Cards { get; set; } = new();
     }
 

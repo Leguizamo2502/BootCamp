@@ -13,8 +13,21 @@ namespace Data.Services
 {
     public class DeckRepository : DataGeneric<Deck>, IDeckRepository
     {
-        public DeckRepository(ApplicationDbContext context) : base(context)
+        private readonly IPlayerRepository _playerRepository;
+        public DeckRepository(ApplicationDbContext context, IPlayerRepository playerRepository) : base(context)
         {
+            _playerRepository = playerRepository;
+        }
+
+        public async Task<List<Deck>> GetDeckWithPlayerByAsync(int playerId)
+        {
+            return await _context.Set<Deck>()
+               .Include(d => d.Card)
+               .Include(d => d.GamePlayer)
+                   .ThenInclude(gp => gp.Player)
+               .Where(d => d.GamePlayer.PlayerId == playerId)
+               .ToListAsync();
+
         }
 
         public async Task AddRangeAsync(IEnumerable<Deck> decks)

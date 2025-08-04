@@ -10,6 +10,8 @@ using Data.Interfaces.IRepository;
 using Entity.Domain.Models.Implements;
 using Entity.DTOs.Implements.Create;
 using Entity.DTOs.Implements.Select;
+using Entity.DTOs.Implements.Variants;
+using Mapster;
 using MapsterMapper;
 
 namespace Business.Services
@@ -20,6 +22,19 @@ namespace Business.Services
         public DeckService(IData<Deck> data, IMapper mapper, IDeckRepository deckRepository) : base(data, mapper)
         {
             _deckRepository = deckRepository;
+        }
+
+        public async Task<List<DeckSelectDto>> GetDeckWithPlayeraAsync(int idplayer)
+        {
+            try
+            {
+                var entities = await _deckRepository.GetDeckWithPlayerByAsync(idplayer);
+                return entities.Adapt<List<DeckSelectDto>>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar", ex);
+            }
         }
 
         public async Task<bool> DeleteAll()

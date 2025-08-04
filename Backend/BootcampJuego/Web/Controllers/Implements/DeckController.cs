@@ -1,6 +1,7 @@
 ﻿using Business.Interfaces.Implements;
 using Entity.DTOs.Implements.Create;
 using Entity.DTOs.Implements.Select;
+using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 
 namespace Web.Controllers.Implements
@@ -35,5 +36,31 @@ namespace Web.Controllers.Implements
         {
             return await _service.UpdateAsync(dto);
         }
+
+        [HttpGet("player/{id}")]
+        //[ProducesResponseType(typeof(IEnumerable<TDto>), 200)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public virtual async Task<IActionResult> GetDeckPLayer(int id)
+        {
+            try
+            {
+                var result = await _service.GetDeckWithPlayeraAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error obteniendo datos");
+                return StatusCode(500, new { message = "Error interno del servidor." });
+            }
+
+            //var result = await DeleteAsync(id, deleteType);
+
+            //if (!result)
+            //    return NotFound(new { message = "No se pudo eliminar el recurso." });
+
+            //return Ok(new { message = $"Eliminación {deleteType} realizada correctamente." });
+        }
+
     }
 }

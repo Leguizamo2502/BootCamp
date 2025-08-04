@@ -13,6 +13,9 @@ namespace Entity.DTOs.Implements.Select
         public int GamePlayerId { get; set; }
         public int CardId { get; set; }
 
+        public string PlayerName { get; set; }
+        public CardSelectDto Card { get; set; }
+
         public bool Used { get; set; }
     }
 }
