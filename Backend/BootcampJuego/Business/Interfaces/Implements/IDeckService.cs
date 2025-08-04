@@ -8,6 +8,6 @@ namespace Business.Interfaces.Implements
     public interface IDeckService : IBusinessGeneric<DeckCreateDto,DeckSelectDto>
     {
         Task<bool> DeleteAll();
-        Task<List<DeckSelectDto>> GetDeckWithPlayeraAsync(int idplayer);
+        Task<DeckSelectDto> GetDeckWithPlayeraAsync(int idplayer);
     }
 }

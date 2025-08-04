@@ -13,6 +13,6 @@ namespace Data.Interfaces.Implements
         Task AddRangeAsync(IEnumerable<Deck> decks);
         Task<List<Deck>> GetDecksBygameWithCardAndPlayer(int gameId);
         Task<bool> DeleteAll();
-        Task<List<Deck>> GetDeckWithPlayerByAsync(int playerId);
+        Task<List<Deck>> GetDecksWithPlayerByAsync(int playerId);
     }
 }

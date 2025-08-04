@@ -11,10 +11,10 @@ namespace Entity.DTOs.Implements.Select
     public class DeckSelectDto : BaseDto
     {
         public int GamePlayerId { get; set; }
-        public int CardId { get; set; }
+        //public int CardId { get; set; }
 
         public string PlayerName { get; set; }
-        public CardSelectDto Card { get; set; }
+        public List<CardSelectDto> Cards { get; set; }
 
         public bool Used { get; set; }
     }

@@ -24,12 +24,16 @@ namespace Business.Services
             _deckRepository = deckRepository;
         }
 
-        public async Task<List<DeckSelectDto>> GetDeckWithPlayeraAsync(int idplayer)
+        public async Task<DeckSelectDto> GetDeckWithPlayeraAsync(int playerId)
         {
             try
             {
-                var entities = await _deckRepository.GetDeckWithPlayerByAsync(idplayer);
-                return entities.Adapt<List<DeckSelectDto>>();
+                var decks = await _deckRepository.GetDecksWithPlayerByAsync(playerId);
+
+                if (decks == null || decks.Count == 0)
+                    throw new Exception("No se encontraron decks");
+
+                return decks.Adapt<DeckSelectDto>();
             }
             catch (Exception ex)
             {

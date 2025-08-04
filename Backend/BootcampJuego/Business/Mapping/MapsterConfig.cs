@@ -14,9 +14,14 @@ namespace Business.Mapping
         public static TypeAdapterConfig Register()
         {
             var config = TypeAdapterConfig.GlobalSettings;
+            config.NewConfig<Card, CardSelectDto>();
 
-            config.NewConfig<Deck, DeckSelectDto>().Map(des => des.PlayerName, src => src.GamePlayer.Player.Name);
-            
+            config.NewConfig<List<Deck>, DeckSelectDto>()
+                 .Map(dest => dest.GamePlayerId, src => src.First().GamePlayerId)
+                 .Map(dest => dest.PlayerName, src => src.First().GamePlayer.Player.Name)
+                 .Map(dest => dest.Used, src => src.First().Used)
+                 //.Map(dest => dest.CardId, src => src.First().CardId)
+                 .Map(dest => dest.Cards, src => src.Select(d => d.Card));
 
             return config;
         }
