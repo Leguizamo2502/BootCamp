@@ -2,7 +2,7 @@
 
 namespace Entity.DTOs.Implements.Create
 {
-    public class RoomCreateDto : BaseDto
+    public class GameCreateDto : BaseDto
     {
         public DateTime Createat { get; set; } = DateTime.Now;
     }

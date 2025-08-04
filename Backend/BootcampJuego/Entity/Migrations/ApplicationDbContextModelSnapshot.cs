@@ -30,9 +30,6 @@ namespace Entity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DeckId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Defense")
                         .HasColumnType("int");
 
@@ -56,8 +53,6 @@ namespace Entity.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeckId");
 
                     b.ToTable("Cards");
 
@@ -688,17 +683,45 @@ namespace Entity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
 
                     b.Property<int>("GamePlayerId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Used")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CardId");
 
                     b.HasIndex("GamePlayerId");
 
                     b.ToTable("Deck");
+                });
+
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Game", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreateAt = new DateTime(25, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Entity.Domain.Models.Implements.GamePlayer", b =>
@@ -709,10 +732,42 @@ namespace Entity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CurrentScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("GamePlayers");
+                });
+
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Move", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GamePlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoundId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsedValue")
                         .HasColumnType("int");
 
                     b.Property<bool>("Winner")
@@ -720,11 +775,13 @@ namespace Entity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("CardId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("GamePlayerId");
 
-                    b.ToTable("GamePlayers");
+                    b.HasIndex("RoundId");
+
+                    b.ToTable("Moves");
                 });
 
             modelBuilder.Entity("Entity.Domain.Models.Implements.Player", b =>
@@ -747,7 +804,7 @@ namespace Entity.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("Entity.Domain.Models.Implements.Room", b =>
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Round", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -755,61 +812,118 @@ namespace Entity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Createat")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberRound")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SelectedAttribute")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms");
-                });
+                    b.HasIndex("GameId");
 
-            modelBuilder.Entity("Entity.Domain.Models.Implements.Card", b =>
-                {
-                    b.HasOne("Entity.Domain.Models.Implements.Deck", "Deck")
-                        .WithMany("Cards")
-                        .HasForeignKey("DeckId");
-
-                    b.Navigation("Deck");
+                    b.ToTable("Rounds");
                 });
 
             modelBuilder.Entity("Entity.Domain.Models.Implements.Deck", b =>
                 {
+                    b.HasOne("Entity.Domain.Models.Implements.Card", "Card")
+                        .WithMany("Decks")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entity.Domain.Models.Implements.GamePlayer", "GamePlayer")
                         .WithMany("Decks")
                         .HasForeignKey("GamePlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Card");
+
                     b.Navigation("GamePlayer");
                 });
 
             modelBuilder.Entity("Entity.Domain.Models.Implements.GamePlayer", b =>
                 {
+                    b.HasOne("Entity.Domain.Models.Implements.Game", "Game")
+                        .WithMany("GamePlayers")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entity.Domain.Models.Implements.Player", "Player")
                         .WithMany("GamePlayers")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Domain.Models.Implements.Room", "Room")
-                        .WithMany("GamePlayers")
-                        .HasForeignKey("RoomId")
+                    b.Navigation("Game");
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Move", b =>
+                {
+                    b.HasOne("Entity.Domain.Models.Implements.Card", "Card")
+                        .WithMany("Moves")
+                        .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Player");
+                    b.HasOne("Entity.Domain.Models.Implements.GamePlayer", "GamePlayer")
+                        .WithMany("Moves")
+                        .HasForeignKey("GamePlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Room");
+                    b.HasOne("Entity.Domain.Models.Implements.Round", "Round")
+                        .WithMany("Moves")
+                        .HasForeignKey("RoundId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("GamePlayer");
+
+                    b.Navigation("Round");
                 });
 
-            modelBuilder.Entity("Entity.Domain.Models.Implements.Deck", b =>
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Round", b =>
                 {
-                    b.Navigation("Cards");
+                    b.HasOne("Entity.Domain.Models.Implements.Game", "Game")
+                        .WithMany("Rounds")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Card", b =>
+                {
+                    b.Navigation("Decks");
+
+                    b.Navigation("Moves");
+                });
+
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Game", b =>
+                {
+                    b.Navigation("GamePlayers");
+
+                    b.Navigation("Rounds");
                 });
 
             modelBuilder.Entity("Entity.Domain.Models.Implements.GamePlayer", b =>
                 {
                     b.Navigation("Decks");
+
+                    b.Navigation("Moves");
                 });
 
             modelBuilder.Entity("Entity.Domain.Models.Implements.Player", b =>
@@ -817,9 +931,9 @@ namespace Entity.Migrations
                     b.Navigation("GamePlayers");
                 });
 
-            modelBuilder.Entity("Entity.Domain.Models.Implements.Room", b =>
+            modelBuilder.Entity("Entity.Domain.Models.Implements.Round", b =>
                 {
-                    b.Navigation("GamePlayers");
+                    b.Navigation("Moves");
                 });
 #pragma warning restore 612, 618
         }

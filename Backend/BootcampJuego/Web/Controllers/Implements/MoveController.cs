@@ -5,13 +5,13 @@ using Web.Controllers.Base;
 
 namespace Web.Controllers.Implements
 {
-    public class RoomController : BaseController<RoomCreateDto, RoomSelectDto, IRoomService>
+    public class MoveController : BaseController<MoveCreateDto, MoveSelectDto, IMoveService>
     {
-        public RoomController(IRoomService service, ILogger<RoomController> logger) : base(service, logger)
+        public MoveController(IMoveService service, ILogger<MoveController> logger) : base(service, logger)
         {
         }
 
-        protected override async Task AddAsync(RoomCreateDto dto)
+        protected override async Task AddAsync(MoveCreateDto dto)
         {
             await _service.CreateAsync(dto);
         }
@@ -21,17 +21,17 @@ namespace Web.Controllers.Implements
             return await _service.DeleteAsync(id);
         }
 
-        protected override async Task<IEnumerable<RoomSelectDto>> GetAllAsync()
+        protected override async Task<IEnumerable<MoveSelectDto>> GetAllAsync()
         {
             return await _service.GetAllAsync();
         }
 
-        protected override async Task<RoomSelectDto?> GetByIdAsync(int id)
+        protected override async Task<MoveSelectDto?> GetByIdAsync(int id)
         {
             return await _service.GetByIdAsync(id);
         }
 
-        protected override async Task<bool> UpdateAsync(int id, RoomCreateDto dto)
+        protected override async Task<bool> UpdateAsync(int id, MoveCreateDto dto)
         {
             return await _service.UpdateAsync(dto);
         }

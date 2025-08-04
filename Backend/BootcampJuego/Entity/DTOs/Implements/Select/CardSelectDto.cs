@@ -18,6 +18,6 @@ namespace Entity.DTOs.Implements.Select
         public int Magic { get; set; }
         public int Force { get; set; }
         public int Defense { get; set; }
-        public int? DeckId { get; set; }
+        //public int? DeckId { get; set; }
     }
 }

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Business.Interfaces.Repository;
 using Entity.DTOs.Implements.Create;
 using Entity.DTOs.Implements.Select;
+using Entity.DTOs.Implements.Variants;
 
 namespace Business.Interfaces.Implements
 {
-    public interface IRoomService : IBusinessGeneric<RoomCreateDto,RoomSelectDto>
+    public interface IGameService : IBusinessGeneric<GameCreateDto,GameSelectDto>
     {
+        Task<GameStartResultDto> StartGameAsync(int gameId);
     }
 }

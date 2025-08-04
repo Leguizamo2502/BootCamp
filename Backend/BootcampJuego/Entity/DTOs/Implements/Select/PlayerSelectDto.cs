@@ -10,5 +10,6 @@ namespace Entity.DTOs.Implements.Select
     public class PlayerSelectDto : BaseDto
     {
         public string Name { get; set; }
+        public bool Active { get; set; }
     }
 }

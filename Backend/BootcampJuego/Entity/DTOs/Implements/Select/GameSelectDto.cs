@@ -2,7 +2,7 @@
 
 namespace Entity.DTOs.Implements.Select
 {
-    public class RoomSelectDto : BaseDto
+    public class GameSelectDto : BaseDto
     {
         public DateTime Createat { get; set; }
     }

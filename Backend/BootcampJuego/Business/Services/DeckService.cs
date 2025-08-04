@@ -21,5 +21,18 @@ namespace Business.Services
         {
             _deckRepository = deckRepository;
         }
+
+        public async Task<bool> DeleteAll()
+        {
+            try
+            {
+                var result = await _deckRepository.DeleteAll();
+                return result;
+
+            }catch (Exception ex)
+            {
+                throw new Exception("Erro al borrar todos los deck", ex);
+            }
+        }
     }
 }

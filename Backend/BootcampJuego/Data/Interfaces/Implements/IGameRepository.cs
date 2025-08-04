@@ -3,7 +3,9 @@ using Entity.Domain.Models.Implements;
 
 namespace Data.Interfaces.Implements
 {
-    public interface IRoomRepository : IData<Room>
+    public interface IGameRepository : IData<Game>
     {
+        Task<Game?> GetWithPlayersAsync(int gameid);
+
     }
 }

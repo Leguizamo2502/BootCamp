@@ -1,9 +1,4 @@
 ﻿using Entity.Domain.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entity.Domain.Models.Implements
 {
@@ -17,7 +12,7 @@ namespace Entity.Domain.Models.Implements
         public int Magic { get; set; }
         public int Force { get; set; }
         public int Defense { get; set; }
-        public int? DeckId { get; set; }
-        public Deck? Deck { get; set; }
+        public ICollection<Deck> Decks { get; set; }
+        public ICollection<Move> Moves { get; set; }
     }
 }

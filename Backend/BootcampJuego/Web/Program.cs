@@ -1,6 +1,7 @@
 using Business.Interfaces.Implements;
 using Business.Mapping;
 using Business.Services;
+using Business.Services.Singletons;
 using Data.Interfaces.Implements;
 using Data.Interfaces.IRepository;
 using Data.Repository;
@@ -23,6 +24,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMapster();
 MapsterConfig.Register();
 
+
+
+
 //Services
 
 
@@ -37,11 +41,22 @@ builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<IDeckRepository, DeckRepository>();
 builder.Services.AddScoped<IDeckService, DeckService>();
 
-builder.Services.AddScoped<IRoomRepository, RoomRepository>();
-builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGameService, GameService>();
 
 builder.Services.AddScoped<IGamePlayerRepository, GamePlayerRepository>();
 builder.Services.AddScoped<IGamePLayerService, GamePlayerService>();
+
+builder.Services.AddScoped<IRoundRepository, RoundRepository>();
+builder.Services.AddScoped<IRoundService, RoundService>();
+
+builder.Services.AddScoped<IMoveRepository, MoveRepository>();
+builder.Services.AddScoped<IMoveService, MoveService>();
+
+//builder.Services.AddScoped<IGameService, GameService>();
+
+
+
 
 
 

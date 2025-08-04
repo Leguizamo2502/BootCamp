@@ -10,5 +10,6 @@ namespace Data.Interfaces.Implements
 {
     public interface IGamePlayerRepository : IData<GamePlayer>
     {
+        Task<List<GamePlayer>> GetByGameIdAsync(int gameId);
     }
 }

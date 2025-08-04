@@ -1,10 +1,4 @@
-﻿using Entity.Domain.Models.Implements;
-using Entity.DTOs.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entity.DTOs.Base;
 
 namespace Entity.DTOs.Implements.Create
 {
@@ -18,6 +12,6 @@ namespace Entity.DTOs.Implements.Create
         public int Magic { get; set; }
         public int Force { get; set; }
         public int Defense { get; set; }
-        public int? DeckId { get; set; }
+        //public int? DeckId { get; set; }
     }
 }

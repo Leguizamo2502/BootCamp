@@ -10,5 +10,8 @@ namespace Data.Interfaces.Implements
 {
     public interface IDeckRepository : IData<Deck>
     {
+        Task AddRangeAsync(IEnumerable<Deck> decks);
+        Task<List<Deck>> GetDecksBygameWithCardAndPlayer(int gameId);
+        Task<bool> DeleteAll();
     }
 }

@@ -1,9 +1,4 @@
 ﻿using Entity.Domain.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entity.Domain.Models.Implements
 {
@@ -11,10 +6,11 @@ namespace Entity.Domain.Models.Implements
     {
         public int GamePlayerId { get; set; }
         public GamePlayer GamePlayer { get; set; }
-     
-        public bool Active { get; set; }
+        public int CardId { get; set; }
+        public Card Card { get; set; }
+        public bool Used { get; set; }
 
 
-        public ICollection<Card> Cards { get; set; }
+
     }
 }

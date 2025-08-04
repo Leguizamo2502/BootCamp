@@ -24,6 +24,40 @@ namespace Business.Services
             _playerRepository = playerRepository;
         }
 
+
+        public override async Task<PlayerCreateDto> CreateAsync(PlayerCreateDto dto)
+        {
+            try
+            {
+                if (dto == null)
+                {
+                    throw new ArgumentNullException(nameof(dto));
+                }
+
+                var entity = dto.Adapt<Player>();
+                var created = await _playerRepository.CreateAsync(entity);
+                return created.Adapt<PlayerCreateDto>();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("error al crear", ex);
+            }
+        }
+
+        public override async Task<IEnumerable<PlayerSelectDto>> GetAllAsync()
+        {
+            try
+            {
+                var entities = await _playerRepository.GetAllAsync();
+                return entities.Adapt<IEnumerable<PlayerSelectDto>>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar", ex);
+            }
+        }
+
         public async Task<int?> DeleteLogic(int id)
         {
             try
