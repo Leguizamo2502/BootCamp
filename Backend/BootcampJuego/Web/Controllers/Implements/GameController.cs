@@ -59,7 +59,7 @@ namespace Web.Controllers.Implements
             }
         }
 
-        [HttpDelete("/end")]
+        [HttpDelete("end")]
         public async Task<ActionResult<GameStartResultDto>> DeleteAll()
         {
             try
