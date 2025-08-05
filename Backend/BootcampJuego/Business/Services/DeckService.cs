@@ -41,6 +41,8 @@ namespace Business.Services
             }
         }
 
+        
+
         public async Task<bool> DeleteAll()
         {
             try
@@ -49,6 +51,20 @@ namespace Business.Services
                 return result;
 
             }catch (Exception ex)
+            {
+                throw new Exception("Erro al borrar todos los deck", ex);
+            }
+        }
+
+        public async Task<bool> DeleteUsed(int playerId, int cardId)
+        {
+            try
+            {
+                var result = await _deckRepository.DeleteUsed(playerId, cardId);
+                return result;
+
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Erro al borrar todos los deck", ex);
             }

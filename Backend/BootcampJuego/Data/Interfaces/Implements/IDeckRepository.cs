@@ -14,5 +14,6 @@ namespace Data.Interfaces.Implements
         Task<List<Deck>> GetDecksBygameWithCardAndPlayer(int gameId);
         Task<bool> DeleteAll();
         Task<List<Deck>> GetDecksWithPlayerByAsync(int playerId);
+        Task<bool> DeleteUsed(int playerId, int cardId);
     }
 }

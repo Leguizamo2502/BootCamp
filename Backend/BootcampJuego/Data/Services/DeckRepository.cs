@@ -19,6 +19,18 @@ namespace Data.Services
             _playerRepository = playerRepository;
         }
 
+        public async Task<bool> DeleteUsed(int playerId, int cardId)
+        {
+            var deck = await _dbSet
+                .FirstOrDefaultAsync(d => d.GamePlayerId == playerId && d.CardId == cardId);
+
+            if (deck == null) return false;
+
+            _context.Remove(deck);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<List<Deck>> GetDecksWithPlayerByAsync(int playerId)
         {
             return await _dbSet

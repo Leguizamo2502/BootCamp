@@ -9,5 +9,6 @@ namespace Business.Interfaces.Implements
     {
         Task<bool> DeleteAll();
         Task<DeckSelectDto> GetDeckWithPlayeraAsync(int idplayer);
+        Task<bool> DeleteUsed(int playerId, int cardId);
     }
 }
